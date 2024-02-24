@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
   database: "car_rental_database",
   ssl: {
     // Provide Your SSL options
-    ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem"),
+    ca: fs.readFileSync("./sql_scripts/DigiCertGlobalRootCA.crt.pem"),
   },
 });
 
