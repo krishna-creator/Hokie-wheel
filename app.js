@@ -5,7 +5,7 @@ const fs = require("fs");
 require("dotenv").config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 1337;
 
 // Connect YourMySQL connection details
 const connection = mysql.createConnection({
@@ -18,6 +18,13 @@ const connection = mysql.createConnection({
     ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem"),
   },
 });
+var del = connection._protocol._delegateError;
+connection._protocol._delegateError = function (err, sequence) {
+  if (err.fatal) {
+    console.trace("fatal error: " + err.message);
+  }
+  return del.call(this, err, sequence);
+};
 
 // Connect to MySQL
 connection.connect((err) => {
@@ -36,16 +43,15 @@ app.use(express.static("public"));
 
 // Routes
 app.get("/", (req, res) => {
-  // Sample query
-  connection.query("SELECT * FROM customer", (err, results) => {
-    if (err) {
-      console.error("Error querying MySQL:", err);
-      return;
-    }
-    // Render HTML template with data
-    res.render("index", { data: results });
-  });
+  // connection.query("SELECT * FROM customer", (err, results) => {
+  //   if (err) {
+  //     console.error("Error querying MySQL:", err);
+  //     return;
+  //   }
+  // Render HTML template with data
+  res.render("index");
 });
+// });
 
 // Start server
 app.listen(port, () => {

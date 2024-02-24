@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/41a0bd05-3359-4b04-8e04-3b0418abe07f/resourceGroups/Krishna/providers/Microsoft.Web/sites/Hokie-Wheel-NodeJs",
+  "appService.deploySubpath": "."
+}
