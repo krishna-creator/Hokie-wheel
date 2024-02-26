@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: "car_rental_database",
   ssl: {
-    ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem"),
+    ca: fs.readFileSync("./sql_scripts/DigiCertGlobalRootCA.crt.pem"),
   },
 });
 
