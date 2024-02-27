@@ -1,0 +1,58 @@
+<!-- branchForm.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <title>New Vehicle</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/vehicle.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+        }
+    </style>
+</head>
+<body >
+    <div>
+        <h1>Add Vehicle</h1>
+        <form action="/vehicleForm" method="POST">
+            <label for="vehicleId">Vehicle ID</label>
+            <input type="text" id="vehicleId" name="vehicleId" placeholder="Vehicle ID" required><br><br>
+
+            <label for="cost">Cost</label>
+            <input type="number" id="cost" name="cost" placeholder="Cost" required><br><br>
+        
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" placeholder="Model" required><br><br>
+
+            <label for="type">Type</label>
+            <input type="text" id="type" name="type" placeholder="Type" required><br><br>
+
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" placeholder="Year" required><br><br>
+
+            <label for="brand">Brand</label>
+            <input type="text" id="brand" name="brand" placeholder="Brand" required><br><br>
+        
+
+            <label for="branchId">Branch ID</label>
+            <input type="text" id="branchId" name="branchId" placeholder="Branch ID" required><br><br>
+        
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+</body>
+</html>
