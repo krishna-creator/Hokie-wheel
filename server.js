@@ -39,13 +39,29 @@ app.post("/branchForm", (req, res) => {
       return;
     }
     console.log("New Branch Details added successfully!");
-    res.status(200).send("New Branch Details added successfully!");
+    res.redirect("/branchForm?success=true");
     
   });
 });
 
 
+//branch DELETE form
+app.post("/branchDeleteForm", (req, res) => {
+  const { branchId } = req.body;
 
+  const query = "DELETE FROM branch WHERE BRANCH_ID = ?";
+
+  connection.query(query, branchId, (error, results, fields) => {
+    if (error) {
+      console.error("Error deleting data:", error);
+      res.status(500).send("Error deleting data from the database");
+      return;
+    }
+    console.log("Given Branch deleted successfully!");
+    res.status(200).send("Given Branch deleted successfully!");
+    
+  });
+});
 
 // insurance Form
 app.post("/insuranceForm", (req, res) => {
