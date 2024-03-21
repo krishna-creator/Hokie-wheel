@@ -14,7 +14,7 @@ body {
 .header {
   position: sticky !important;
   top: 0;
-  z-index: 2;
+  z-index: 10;
 }
 
 .search-field {
@@ -24,7 +24,7 @@ body {
 }
 
 .hero-image {
-  background-image: url("images/h1.jpeg");
+  background-image: url("images/hero_image.jpg");
   height: 400px; /* Adjust height as needed */
   background-attachment: fixed;
   background-position: center;

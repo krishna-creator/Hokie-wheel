@@ -1,32 +1,9 @@
 const express = require("express");
-const mysql = require("mysql");
 const ejs = require("ejs");
-const fs = require("fs");
-require("dotenv").config();
 
 const app = express();
-const port = 3000;
 
-// Connect YourMySQL connection details
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: "car_rental_database",
-  ssl: {
-    // Provide Your SSL options
-    ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem"),
-  },
-});
 
-// Connect to MySQL
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL:", err);
-    return;
-  }
-  console.log("Connected to MySQL");
-});
 
 // Set view engine
 app.set("view engine", "ejs");
@@ -34,20 +11,62 @@ app.set("view engine", "ejs");
 // Middleware for serving static files
 app.use(express.static("public"));
 
+// Middleware to parse JSON and URL-encoded request bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Routes
+
 app.get("/", (req, res) => {
-  // Sample query
-  connection.query("SELECT * FROM customer", (err, results) => {
-    if (err) {
-      console.error("Error querying MySQL:", err);
-      return;
-    }
-    // Render HTML template with data
-    res.render("index", { data: results });
-  });
+  res.render("index");
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.get("/branchForm", (req, res) => {
+  res.render("branchForm");
 });
+
+app.get("/branchDeleteForm", (req, res) => {
+  res.render("branchDeleteForm");
+});
+
+app.get("/insuranceForm", (req, res) => {
+  res.render("insuranceForm");
+});
+
+app.get("/vehicleForm", (req, res) => {
+  res.render("vehicleForm");
+});
+
+app.get("/SignUp", (req, res) => {
+  res.render("SignUp");
+});
+
+app.get("/branchUpdateForm", (req, res) => {
+  res.render("branchUpdateForm");
+});
+
+app.get("/insuranceDeleteForm", (req, res) => {
+  res.render("insuranceDeleteForm");
+});
+
+app.get("/insuranceUpdateForm", (req, res) => {
+  res.render("insuranceUpdateForm");
+});
+
+app.get("/vehicleDeleteForm", (req, res) => {
+  res.render("vehicleDeleteForm");
+});
+
+app.get("/vehicleUpdateForm", (req, res) => {
+  res.render("vehicleUpdateForm");
+});
+
+app.get("/customerDeactivationForm", (req, res) => {
+  res.render("customerDeactivationForm");
+});
+
+app.get("/customerUpdateForm", (req, res) => {
+  res.render("customerUpdateForm");
+});
+
+module.exports = app;

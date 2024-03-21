@@ -1,0 +1,48 @@
+<!-- insuranceUpdateForm.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <title>Update Insurance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/insuranceform.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+        }
+    </style>
+</head>
+<body >
+    <div>
+        <h1>Update Insurance Details</h1>
+        <form action="/insuranceUpdateForm" method="POST">
+            <label for="insuranceId">Insurance ID</label>
+            <input type="text" id="insuranceId" name="insuranceId" placeholder="Insurance ID" required><br><br>
+        
+            <label for="insuranceType">Insurance Type</label>
+            <input type="text" id="insuranceType" name="insuranceType" placeholder="Insurance Type" required><br><br>
+        
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" placeholder="Description" required><br><br>
+        
+            <label for="cost">Cost</label>
+            <input type="number" id="cost" name="cost" placeholder="Cost" required><br><br>
+        
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    
+</body>
+</html>
