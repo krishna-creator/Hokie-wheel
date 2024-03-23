@@ -24,26 +24,28 @@ connection.connect((err) => {
   console.log("Connected to MySQL");
 });
 
-
 // Route for handling form submission
- //branch form
+//branch form
 app.post("/branchForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
-  const query = "INSERT INTO branch (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
+  const query =
+    "INSERT INTO branch (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
 
-  connection.query(query, [branchId, city, state, contact], (error, results, fields) => {
-    if (error) {
-      console.error("Error inserting data:", error);
-      res.status(500).send("Error inserting data into the database");
-      return;
+  connection.query(
+    query,
+    [branchId, city, state, contact],
+    (error, results, fields) => {
+      if (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).send("Error inserting data into the database");
+        return;
+      }
+      console.log("New Branch Details added successfully!");
+      res.redirect("/branchForm?success=true");
     }
-    console.log("New Branch Details added successfully!");
-    res.redirect("/branchForm?success=true");
-    
-  });
+  );
 });
-
 
 //branch DELETE form
 app.post("/branchDeleteForm", (req, res) => {
@@ -59,7 +61,6 @@ app.post("/branchDeleteForm", (req, res) => {
     }
     console.log("Given Branch deleted successfully!");
     res.status(200).send("Given Branch deleted successfully!");
-    
   });
 });
 
@@ -67,77 +68,91 @@ app.post("/branchDeleteForm", (req, res) => {
 app.post("/branchUpdateForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
-  const query = "UPDATE branch SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
+  const query =
+    "UPDATE branch SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
 
-  connection.query(query, [city, state, contact, branchId], (error, results, fields) => {
-    if (error) {
-      console.error("Error updating data:", error);
-      res.status(500).send("Error updating data into the database");
-      return;
+  connection.query(
+    query,
+    [city, state, contact, branchId],
+    (error, results, fields) => {
+      if (error) {
+        console.error("Error updating data:", error);
+        res.status(500).send("Error updating data into the database");
+        return;
+      }
+      console.log("Given Branch Details updated successfully!");
+      res.status(200).send("Given Branch Details updated successfully!");
     }
-    console.log("Given Branch Details updated successfully!");
-    res.status(200).send("Given Branch Details updated successfully!");
-    
-  });
+  );
 });
-
 
 // insurance Form
 app.post("/insuranceForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
-  const query = "INSERT INTO insurance (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
+  const query =
+    "INSERT INTO insurance (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
 
-  connection.query(query, [insuranceId, insuranceType, description, cost], (error, result, fields) => {
-    if (error) {
-      console.error("Error inserting data:", error);
-      res.status(500).send("Error inserting data into the database");
-      return;
+  connection.query(
+    query,
+    [insuranceId, insuranceType, description, cost],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).send("Error inserting data into the database");
+        return;
+      }
+      console.log("New Insurance added successfully");
+      res.status(200).send("New Insurance added successfully");
     }
-    console.log("New Insurance added successfully");
-    res.status(200).send("New Insurance added successfully");
-    
-  });
+  );
 });
 
 // vehicle Form
 app.post("/vehicleForm", (req, res) => {
   const { vehicleId, cost, model, type, year, brand, branchId } = req.body;
 
-  const query = "INSERT INTO VEHICLE (VEHICLE_ID, COST, MODEL, TYPE, YEAR, BRAND, BRANCH_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const query =
+    "INSERT INTO VEHICLE (VEHICLE_ID, COST, MODEL, TYPE, YEAR, BRAND, BRANCH_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  connection.query(query, [vehicleId, cost, model, type, year, brand, branchId], (error, result, fields) => {
-    if (error) {
-      console.error("Error inserting data:", error);
-      res.status(500).send("Error inserting data into the database");
-      return;
+  connection.query(
+    query,
+    [vehicleId, cost, model, type, year, brand, branchId],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).send("Error inserting data into the database");
+        return;
+      }
+      console.log("New Vehicle added successfully");
+      res.status(200).send("New Vehicle added successfully");
     }
-    console.log("New Vehicle added successfully");
-    res.status(200).send("New Vehicle added successfully");
-    
-  });
+  );
 });
 
 // cutomer Form
 app.post("/SignUp", (req, res) => {
   const { first_name, last_name, email, license, contact } = req.body;
 
-  const query = "INSERT INTO CUSTOMER (LICENSE, CONTACT ,EMAIL, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?, ?)";
+  const query =
+    "INSERT INTO CUSTOMER (LICENSE, CONTACT ,EMAIL, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?, ?)";
 
-  connection.query(query, [license, contact ,email, first_name, last_name], (error, result, fields) => {
-    if (error) {
-      console.error("Error inserting data:", error);
-      res.status(500).send("Error inserting data into the database");
-      return;
+  connection.query(
+    query,
+    [license, contact, email, first_name, last_name],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).send("Error inserting data into the database");
+        return;
+      }
+      console.log("New Customer added successfully");
+      res.status(200).send("New Customer added successfully");
     }
-    console.log("New Customer added successfully");
-    res.status(200).send("New Customer added successfully");
-    
-  });
+  );
 });
 
-
-// insurance DELETE Form 
+// insurance DELETE Form
 app.post("/insuranceDeleteForm", (req, res) => {
   const { insuranceId } = req.body;
 
@@ -151,29 +166,30 @@ app.post("/insuranceDeleteForm", (req, res) => {
     }
     console.log("Given Insurance deleted successfully");
     res.status(200).send("Given Insurance deleted successfully");
-    
   });
 });
-
 
 // insurance UPDATE Form
 app.post("/insuranceUpdateForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
-  const query = "UPDATE insurance SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
+  const query =
+    "UPDATE insurance SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
 
-  connection.query(query, [insuranceType, description, cost, insuranceId], (error, result, fields) => {
-    if (error) {
-      console.error("Error updating data:", error);
-      res.status(500).send("Error updating data into the database");
-      return;
+  connection.query(
+    query,
+    [insuranceType, description, cost, insuranceId],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error updating data:", error);
+        res.status(500).send("Error updating data into the database");
+        return;
+      }
+      console.log("Given Insurance updated successfully");
+      res.status(200).send("Given Insurance updated successfully");
     }
-    console.log("Given Insurance updated successfully");
-    res.status(200).send("Given Insurance updated successfully");
-    
-  });
+  );
 });
-
 
 // vehicle DELETE Form
 app.post("/vehicleDeleteForm", (req, res) => {
@@ -189,29 +205,30 @@ app.post("/vehicleDeleteForm", (req, res) => {
     }
     console.log("Given Vehicle deleted successfully");
     res.status(200).send("Given Vehicle deleted successfully");
-    
   });
 });
-
 
 // vehicle UPDATE Form
 app.post("/vehicleUpdateForm", (req, res) => {
   const { vehicleId, cost, model, type, year, brand, branchId } = req.body;
 
-  const query = "UPDATE VEHICLE SET COST = ?, MODEL = ?, TYPE = ?, YEAR = ?, BRAND = ?, BRANCH_ID = ? WHERE VEHICLE_ID = ?";
+  const query =
+    "UPDATE VEHICLE SET COST = ?, MODEL = ?, TYPE = ?, YEAR = ?, BRAND = ?, BRANCH_ID = ? WHERE VEHICLE_ID = ?";
 
-  connection.query(query, [cost, model, type, year, brand, branchId, vehicleId], (error, result, fields) => {
-    if (error) {
-      console.error("Error updating data:", error);
-      res.status(500).send("Error updating data into the database");
-      return;
+  connection.query(
+    query,
+    [cost, model, type, year, brand, branchId, vehicleId],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error updating data:", error);
+        res.status(500).send("Error updating data into the database");
+        return;
+      }
+      console.log("Given Vehicle details updated successfully");
+      res.status(200).send("Given Vehicle details added successfully");
     }
-    console.log("Given Vehicle details updated successfully");
-    res.status(200).send("Given Vehicle details added successfully");
-    
-  });
+  );
 });
-
 
 // cutomer DEACTIVATION Form
 app.post("/customerDeactivationForm", (req, res) => {
@@ -227,29 +244,40 @@ app.post("/customerDeactivationForm", (req, res) => {
     }
     console.log("Given Customer deleted successfully");
     res.status(200).send("Given Customer deleted successfully");
-    
   });
 });
-
 
 // cutomer UPDATE Form
 app.post("/customerUpdateForm", (req, res) => {
   const { first_name, last_name, email, license, contact } = req.body;
 
-  const query = "UPDATE CUSTOMER SET CONTACT = ?, EMAIL = ?, FIRST_NAME = ?, LAST_NAME = ? WHERE LICENSE = ?";
+  const query =
+    "UPDATE CUSTOMER SET CONTACT = ?, EMAIL = ?, FIRST_NAME = ?, LAST_NAME = ? WHERE LICENSE = ?";
 
-  connection.query(query, [contact ,email, first_name, last_name, license], (error, result, fields) => {
-    if (error) {
-      console.error("Error updating data:", error);
-      res.status(500).send("Error updating data into the database");
-      return;
+  connection.query(
+    query,
+    [contact, email, first_name, last_name, license],
+    (error, result, fields) => {
+      if (error) {
+        console.error("Error updating data:", error);
+        res.status(500).send("Error updating data into the database");
+        return;
+      }
+      console.log("Given Customer details updated successfully");
+      res.status(200).send("Given Customer details updated successfully");
     }
-    console.log("Given Customer details updated successfully");
-    res.status(200).send("Given Customer details updated successfully");
-    
-  });
+  );
 });
 
+app.get("/locations", (req, res) => {
+  const userInput = req.query.q;
+  const query = "SELECT city FROM branch WHERE city LIKE ? LIMIT 10";
+
+  connection.query(query, [`%${userInput}%`], (error, results) => {
+    if (error) throw error;
+    res.json(results);
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
