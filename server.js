@@ -1,5 +1,6 @@
 const app = require("./app");
-const mysql = require("mysql");
+//const mysql = require("mysql");
+const mysql = require("mysql2");
 const fs = require("fs");
 require("dotenv").config();
 
@@ -30,7 +31,7 @@ app.post("/branchForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
   const query =
-    "INSERT INTO branch (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
+    "INSERT INTO BRANCH (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
 
   connection.query(
     query,
@@ -41,8 +42,6 @@ app.post("/branchForm", (req, res) => {
         res.status(500).send("Error inserting data into the database");
         return;
       }
-      console.log("New Branch Details added successfully!");
-      res.redirect("/branchForm?success=true");
     }
   );
 });
@@ -69,7 +68,7 @@ app.post("/branchUpdateForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
   const query =
-    "UPDATE branch SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
+    "UPDATE BRANCH SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
 
   connection.query(
     query,
@@ -80,8 +79,6 @@ app.post("/branchUpdateForm", (req, res) => {
         res.status(500).send("Error updating data into the database");
         return;
       }
-      console.log("Given Branch Details updated successfully!");
-      res.status(200).send("Given Branch Details updated successfully!");
     }
   );
 });
@@ -91,7 +88,7 @@ app.post("/insuranceForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
   const query =
-    "INSERT INTO insurance (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
+    "INSERT INTO INSURANCE (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
 
   connection.query(
     query,
@@ -102,8 +99,6 @@ app.post("/insuranceForm", (req, res) => {
         res.status(500).send("Error inserting data into the database");
         return;
       }
-      console.log("New Insurance added successfully");
-      res.status(200).send("New Insurance added successfully");
     }
   );
 });
@@ -174,7 +169,7 @@ app.post("/insuranceUpdateForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
   const query =
-    "UPDATE insurance SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
+    "UPDATE INSURANCE SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
 
   connection.query(
     query,
@@ -185,8 +180,6 @@ app.post("/insuranceUpdateForm", (req, res) => {
         res.status(500).send("Error updating data into the database");
         return;
       }
-      console.log("Given Insurance updated successfully");
-      res.status(200).send("Given Insurance updated successfully");
     }
   );
 });

@@ -212,8 +212,8 @@
               div.style.padding = "10px";
               div.style.cursor = "pointer";
               div.addEventListener("click", function () {
-                // locationInput.value = this.textContent;
-                // suggestionsContainer.innerHTML = ""; // Clear suggestions after selection
+                locationInput.value = this.textContent;
+                suggestionsContainer.innerHTML = ""; // Clear suggestions after selection
                 locationInput.value = "";
                 locationInput.style.display = "none"; // Hide input field
                 selectedLocationName.textContent = this.textContent;
