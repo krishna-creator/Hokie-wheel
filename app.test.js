@@ -5,7 +5,7 @@ describe("GET /", () => {
   let server;
 
   beforeAll((done) => {
-    server = app.listen(12425, () => {
+    server = app.listen(3000, () => {
       console.log("Server started");
       done();
     });
