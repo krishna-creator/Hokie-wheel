@@ -1,5 +1,6 @@
 const app = require("./app");
-const mysql = require("mysql");
+//const mysql = require("mysql");
+const mysql = require('mysql2')
 const fs = require("fs");
 require("dotenv").config();
 
@@ -7,13 +8,15 @@ const port = process.env.PORT || 1337;
 
 // Connect YourMySQL connection details
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: "car_rental_database",
-  ssl: {
-    ca: fs.readFileSync("./sql_scripts/DigiCertGlobalRootCA.crt.pem"),
-  },
+  port: 12425,
+  host: "mysql-11b13c58-vt-964b.a.aivencloud.com",
+  user: "avnadmin",
+  password: "AVNS_vPuNzcMRnMJDFhRqKsT",
+  database: "defaultdb",
+  connectTimeout: 20000,
+  // ssl: {
+  //   ca: fs.readFileSync("./sql_scripts/ca.pem"),
+  // },
 });
 
 connection.connect((err) => {
@@ -30,7 +33,7 @@ connection.connect((err) => {
 app.post("/branchForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
-  const query = "INSERT INTO branch (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
+  const query = "INSERT INTO BRANCH (BRANCH_ID, CITY, STATE, CONTACT) VALUES (?, ?, ?, ?)";
 
   connection.query(query, [branchId, city, state, contact], (error, results, fields) => {
     if (error) {
@@ -49,7 +52,7 @@ app.post("/branchForm", (req, res) => {
 app.post("/branchDeleteForm", (req, res) => {
   const { branchId } = req.body;
 
-  const query = "DELETE FROM branch WHERE BRANCH_ID = ?";
+  const query = "DELETE FROM BRANCH WHERE BRANCH_ID = ?";
 
   connection.query(query, branchId, (error, results, fields) => {
     if (error) {
@@ -67,7 +70,7 @@ app.post("/branchDeleteForm", (req, res) => {
 app.post("/branchUpdateForm", (req, res) => {
   const { branchId, city, state, contact } = req.body;
 
-  const query = "UPDATE branch SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
+  const query = "UPDATE BRANCH SET CITY = ?, STATE = ?, CONTACT = ? WHERE BRANCH_ID = ?";
 
   connection.query(query, [city, state, contact, branchId], (error, results, fields) => {
     if (error) {
@@ -86,7 +89,7 @@ app.post("/branchUpdateForm", (req, res) => {
 app.post("/insuranceForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
-  const query = "INSERT INTO insurance (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
+  const query = "INSERT INTO INSURANCE (INSURANCE_ID, INSURANCE_TYPE, DESCRIPTION, COST) VALUES (?, ?, ?, ?)";
 
   connection.query(query, [insuranceId, insuranceType, description, cost], (error, result, fields) => {
     if (error) {
@@ -141,7 +144,7 @@ app.post("/SignUp", (req, res) => {
 app.post("/insuranceDeleteForm", (req, res) => {
   const { insuranceId } = req.body;
 
-  const query = "DELETE FROM insurance WHERE INSURANCE_ID = ?";
+  const query = "DELETE FROM INSURANCE WHERE INSURANCE_ID = ?";
 
   connection.query(query, [insuranceId], (error, result, fields) => {
     if (error) {
@@ -160,7 +163,7 @@ app.post("/insuranceDeleteForm", (req, res) => {
 app.post("/insuranceUpdateForm", (req, res) => {
   const { insuranceId, insuranceType, description, cost } = req.body;
 
-  const query = "UPDATE insurance SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
+  const query = "UPDATE INSURANCE SET INSURANCE_TYPE = ?, DESCRIPTION = ?, COST = ? WHERE INSURANCE_ID = ?";
 
   connection.query(query, [insuranceType, description, cost, insuranceId], (error, result, fields) => {
     if (error) {
