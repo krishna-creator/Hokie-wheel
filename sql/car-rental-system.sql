@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin`
+-- Inserting data for table `admin`
 --
 
 LOCK TABLES `admin` WRITE;
@@ -47,9 +47,6 @@ INSERT INTO `admin` VALUES ('admin@gmail.com','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7z
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `branch`
---
 
 DROP TABLE IF EXISTS `branch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -195,12 +192,12 @@ DROP TABLE IF EXISTS `customer_credit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer_credit` (
-  `ssn` char(6) NOT NULL,
+  `license` char(6) NOT NULL,
   `card_no` char(16) NOT NULL,
-  PRIMARY KEY (`ssn`,`card_no`),
+  PRIMARY KEY (`license`,`card_no`),
   KEY `customer_credit_card_fk` (`card_no`),
   CONSTRAINT `customer_credit_card_fk` FOREIGN KEY (`card_no`) REFERENCES `credit_card` (`card_no`) ON DELETE CASCADE,
-  CONSTRAINT `customer_credit_customer_fk` FOREIGN KEY (`ssn`) REFERENCES `customer` (`license`)
+  CONSTRAINT `customer_credit_customer_fk` FOREIGN KEY (`license`) REFERENCES `customer` (`license`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -34,7 +34,7 @@ CREATE TABLE customer_credit(
     CONSTRAINT customer_credit_card_fk FOREIGN KEY (card_no) REFERENCES credit_card(card_no) ON DELETE CASCADE
 );
 
-CREATE TABLE office(
+CREATE TABLE branch(
     office_id INT AUTO_INCREMENT,
     name VARCHAR(32) NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE office(
     CONSTRAINT office_pk PRIMARY KEY (office_id)
 );
 
-CREATE TABLE car(
+CREATE TABLE vehicle(
     plate_id VARCHAR(8),
     model VARCHAR(32) NOT NULL,
     make VARCHAR(32) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE car(
     CONSTRAINT car_office_fk FOREIGN KEY (office_id) REFERENCES office(office_id) ON DELETE CASCADE
 );
 
-CREATE TABLE reservation(
+CREATE TABLE rental(
     reservation_no INT AUTO_INCREMENT,
     ssn CHAR(6) NOT NULL,
     plate_id VARCHAR(8) NOT NULL,
