@@ -168,7 +168,7 @@ app.post("/signin", (req, res) => {
             );
           } else {
             db.query(
-              "SELECT * FROM office WHERE email = ?",
+              "SELECT * from branch WHERE email = ?",
               [email],
               (err, result) => {
                 if (err) return res.send({ message: err });
@@ -298,7 +298,7 @@ app.post("/office-signup", (req, res) => {
   bcrypt.hash(password, saltRound, function (err, hash) {
     //store the info inside the database
     db.query(
-      "INSERT INTO office (email, password, name, phone_no, country, city, building_no) VALUES (?,?,?,?,?,?,?)",
+      "INSERT into branch (email, password, name, phone_no, country, city, building_no) VALUES (?,?,?,?,?,?,?)",
       [email, hash, name, phone, country, city, building_no],
       (err, result) => {
         if (err) return res.send({ message: err });
@@ -332,7 +332,7 @@ app.post("/add-car", authorizeOffice, (req, res) => {
 
   //store the info inside the database
   db.query(
-    "INSERT INTO car (plate_id, model, make, year, price, office_id) VALUES (?,?,?,?,?,?)",
+    "INSERT into vehicle (plate_id, model, make, year, price, office_id) VALUES (?,?,?,?,?,?)",
     [plateId, model, make, year, price, officeId],
     (err, result) => {
       if (err) {
@@ -404,10 +404,10 @@ app.post("/add-reservation", authorizeCustomer, (req, res) => {
   var query = "";
   if (payNow === "true")
     query =
-      "INSERT INTO reservation (ssn, plate_id, pickup_date, return_date, payment_date) VALUES (?,?,?,?, CURDATE())";
+      "INSERT into rental (ssn, plate_id, pickup_date, return_date, payment_date) VALUES (?,?,?,?, CURDATE())";
   else
     query =
-      "INSERT INTO reservation (ssn, plate_id, pickup_date, return_date) VALUES (?,?,?,?)";
+      "INSERT into rental (ssn, plate_id, pickup_date, return_date) VALUES (?,?,?,?)";
   db.query(query, [ssn, plateId, pickupDate, returnDate], (err, result) => {
     if (err) return res.send({ message: err });
 
@@ -445,13 +445,13 @@ app.post("/delete-car", authorizeOffice, (req, res) => {
   let office_id = decodedToken.user.office_id;
   //check that only the office having that car can delete it
   db.query(
-    "SELECT office_id FROM `car` WHERE plate_id = ?",
+    "SELECT office_id FROM `vehicle` WHERE plate_id = ?",
     [plate_id],
     (err, result) => {
       if (err) return res.send({ message: err });
       if (result[0].office_id == office_id) {
         db.query(
-          "DELETE FROM `car` WHERE plate_id = ?",
+          "DELETE FROM `vehicle` WHERE plate_id = ?",
           [plate_id],
           (err, result) => {
             if (err) return res.send({ message: err });
@@ -476,7 +476,7 @@ app.post("/add-new-status", authorizeOffice, (req, res) => {
   let office_id = decodedToken.user.office_id;
   //check that only the office having that car can changes its status
   db.query(
-    "SELECT office_id FROM `car` WHERE plate_id = ?",
+    "SELECT office_id FROM `vehicle` WHERE plate_id = ?",
     [plate_id],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -513,7 +513,7 @@ app.post("/check-email-customer", (req, res) => {
 app.post("/check-email-office", (req, res) => {
   let email = req.body.email;
   db.query(
-    "SELECT * FROM office WHERE office.email = ?",
+    "SELECT * from branch WHERE branch.email = ?",
     [email],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -539,7 +539,7 @@ app.post("/check-phone-customer", (req, res) => {
 app.post("/check-phone-office", (req, res) => {
   let phone = req.body.phone;
   db.query(
-    "SELECT * FROM office WHERE phone_no = ?",
+    "SELECT * from branch WHERE phone_no = ?",
     [phone],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -553,7 +553,7 @@ app.post("/get-car-reservation", authorizeAdmin, (req, res) => {
   var plate_id = req.body.plate_id;
   ///get the reservation info from the database
   db.query(
-    "SELECT * FROM reservation NATURAL INNER JOIN car WHERE plate_id = ?",
+    "SELECT * from rental NATURAL INNER JOIN vehicle WHERE plate_id = ?",
     [plate_id],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -583,7 +583,7 @@ app.post("/get-office-name", authorizeOffice, (req, res) => {
   var id = token.user.office_id;
   ///get the reservation info from the database
   db.query(
-    "SELECT name FROM office WHERE office_id = ?",
+    "SELECT name from branch WHERE office_id = ?",
     [id],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -598,7 +598,7 @@ app.post("/get-office-reservation", authorizeOffice, (req, res) => {
   var id = token.user.office_id;
   ///get the reservation info from the database
   db.query(
-    "SELECT * , ((DATEDIFF(return_date,pickup_date)+1)*price ) as revenue FROM reservation JOIN car ON reservation.plate_id = car.plate_id JOIN office on car.office_id = office.office_id JOIN customer ON reservation.ssn = customer.ssn where office.office_id = ?",
+    "SELECT * , ((DATEDIFF(return_date,pickup_date)+1)*price ) as revenue from rental JOIN vehicle ON rental.plate_id = vehicle.plate_id join branch on vehicle.office_id = branch.office_id JOIN customer ON rental.ssn = customer.ssn where branch.office_id = ?",
     [id],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -615,7 +615,7 @@ app.post("/get-customer-reservation", authroizeAdminOrCustomer, (req, res) => {
   if (ssn == null) ssn = req.body.ssn;
   ///get the reservation info from the database
   db.query(
-    "SELECT *, ((DATEDIFF(return_date,pickup_date)+1)*price )as revenue FROM reservation as r NATURAL INNER JOIN customer INNER JOIN car as c on c.plate_id = r.plate_id WHERE r.ssn = ?",
+    "SELECT *, ((DATEDIFF(return_date,pickup_date)+1)*price )as revenue from rental as r NATURAL INNER JOIN customer INNER JOIN vehicle as c on c.plate_id = r.plate_id WHERE r.ssn = ?",
     [ssn],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -630,7 +630,7 @@ app.post("/get-payments-within-period", authorizeAdmin, (req, res) => {
   var end_date = req.body.end_date;
   //get the payments info from the database within the period
   db.query(
-    "SELECT *,((DATEDIFF(return_date,pickup_date)+1)*price )as revenue FROM reservation NATURAL INNER JOIN car WHERE payment_date BETWEEN ? AND ?",
+    "SELECT *,((DATEDIFF(return_date,pickup_date)+1)*price )as revenue from rental NATURAL INNER JOIN vehicle WHERE payment_date BETWEEN ? AND ?",
     [start_date, end_date],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -645,7 +645,7 @@ app.post("/get-reservations-within-period", authorizeAdmin, (req, res) => {
   var end_date = req.body.end_date;
   //get the reservation info from the database within the period
   db.query(
-    "SELECT * FROM reservation as r NATURAL INNER JOIN customer INNER JOIN car as c on c.plate_id = r.plate_id WHERE reserve_date BETWEEN ? AND ?",
+    "SELECT * from rental as r NATURAL INNER JOIN customer INNER JOIN vehicle as c on c.plate_id = r.plate_id WHERE reserve_date BETWEEN ? AND ?",
     [start_date, end_date],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -654,14 +654,14 @@ app.post("/get-reservations-within-period", authorizeAdmin, (req, res) => {
   );
 });
 
-// reservation at certain period search for a specific car
+// reservation at certain period search for a specific vehicle
 app.post("/get-car-reservation-within-period", authorizeAdmin, (req, res) => {
   var plate_id = req.body.plate_id;
   var start_date = req.body.start_date;
   var end_date = req.body.end_date;
   ///get the reservation info from the database
   db.query(
-    "SELECT * FROM reservation as r NATURAL INNER JOIN customer INNER JOIN car as c on c.plate_id = r.plate_id WHERE r.plate_id = ? AND reserve_date BETWEEN ? AND ?",
+    "SELECT * from rental as r NATURAL INNER JOIN customer INNER JOIN vehicle as c on c.plate_id = r.plate_id WHERE r.plate_id = ? AND reserve_date BETWEEN ? AND ?",
     [plate_id, start_date, end_date],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -673,7 +673,7 @@ app.post("/get-car-reservation-within-period", authorizeAdmin, (req, res) => {
 //get all the models of cars
 app.post("/get-all-cars-models", (req, res) => {
   //get the cars info from the database
-  db.query("SELECT DISTINCT model FROM car", (err, result) => {
+  db.query("SELECT DISTINCT model from vehicle", (err, result) => {
     if (err) return res.send({ message: err });
     res.send({ carModels: result, message: "success" });
   });
@@ -684,13 +684,13 @@ app.post("/get-all-cars-makes", (req, res) => {
   var model = req.body.model;
   //get the cars info from the database
   if (model == "Any")
-    db.query("SELECT DISTINCT make FROM car", [model], (err, result) => {
+    db.query("SELECT DISTINCT make from vehicle", [model], (err, result) => {
       if (err) return res.send({ message: err });
       res.send({ carMakes: result, message: "success" });
     });
   else
     db.query(
-      "SELECT DISTINCT make FROM car WHERE model = ?",
+      "SELECT DISTINCT make from vehicle WHERE model = ?",
       [model],
       (err, result) => {
         if (err) return res.send({ message: err });
@@ -703,14 +703,14 @@ app.post("/get-all-cars-makes", (req, res) => {
 app.post("/get-cars-using-model", (req, res) => {
   var model = req.body.model;
   //get the cars info from the database
-  db.query("SELECT * FROM car WHERE model = ?", [model], (err, result) => {
+  db.query("SELECT * from vehicle WHERE model = ?", [model], (err, result) => {
     if (err) return res.send({ message: err });
     res.send({ cars: result, message: "success" });
   });
 });
 
 app.post("/get-all-offices", (req, res) => {
-  db.query("SELECT * FROM office", (err, result) => {
+  db.query("SELECT * from branch", (err, result) => {
     if (err) return res.send({ message: err });
     res.send({ offices: result, message: "success" });
   });
@@ -719,7 +719,7 @@ app.post("/get-all-offices", (req, res) => {
 app.post("/get-cars-using-make", (req, res) => {
   var make = req.body.make;
   //get the cars info from the database
-  db.query("SELECT * FROM car WHERE make = ?", [make], (err, result) => {
+  db.query("SELECT * from vehicle WHERE make = ?", [make], (err, result) => {
     if (err) return res.send({ message: err });
     res.send({ cars: result, message: "success" });
   });
@@ -731,7 +731,7 @@ app.post("/get-cars-using-model-and-make", (req, res) => {
   var make = req.body.make;
   //get the cars info from the database
   db.query(
-    "SELECT * FROM car WHERE model = ? AND make = ?",
+    "SELECT * from vehicle WHERE model = ? AND make = ?",
     [model, make],
     (err, result) => {
       if (err) return res.send({ message: err });
@@ -747,7 +747,7 @@ app.post("/get-cars-using-office", authorizeOffice, (req, res) => {
     date+=" 23:59:59";
     let query = `SELECT *
                 FROM car_status
-                NATURAL INNER JOIN car
+                NATURAL INNER JOIN vehicle
                 WHERE (plate_id,status_date) in (SELECT plate_id, MAX(status_date)
                                                 FROM car_status
                                                 where status_date <= ?
@@ -763,7 +763,7 @@ app.post("/get-cars-using-office", authorizeOffice, (req, res) => {
   db.query(
     `SELECT *
                 FROM car_status
-                NATURAL INNER JOIN car
+                NATURAL INNER JOIN vehicle
                 WHERE (plate_id,status_date) in (SELECT plate_id, MAX(status_date)
                                                 FROM car_status
                                                 where status_date <= CURRENT_TIMESTAMP()
@@ -778,7 +778,7 @@ app.post("/get-cars-using-office", authorizeOffice, (req, res) => {
 
 app.post("/get-most-rented-model", authorizeAdmin, (req, res) => {
   db.query(
-    "SELECT model, COUNT(*) as count FROM reservation NATURAL INNER JOIN car GROUP BY model ORDER BY count DESC LIMIT 1",
+    "SELECT model, COUNT(*) as count from rental NATURAL INNER JOIN vehicle GROUP BY model ORDER BY count DESC LIMIT 1",
     (err, result) => {
       if (err) return res.send({ message: err });
       res.send({ mostRentedModel: result, message: "success" });
@@ -788,7 +788,7 @@ app.post("/get-most-rented-model", authorizeAdmin, (req, res) => {
 
 app.post("/get-most-rented-make", authorizeAdmin, (req, res) => {
   db.query(
-    "SELECT make, COUNT(*) as count FROM reservation NATURAL INNER JOIN car GROUP BY make ORDER BY count DESC LIMIT 1",
+    "SELECT make, COUNT(*) as count from rental NATURAL INNER JOIN vehicle GROUP BY make ORDER BY count DESC LIMIT 1",
     (err, result) => {
       if (err) return res.send({ message: err });
       res.send({ mostRentedMake: result, message: "success" });
@@ -798,9 +798,9 @@ app.post("/get-most-rented-make", authorizeAdmin, (req, res) => {
 
 app.post("/get-most-profitable-office", authorizeAdmin, (req, res) => {
   let query = `SELECT o.name, o.office_id, SUM(((DATEDIFF(r.return_date,r.pickup_date)+1)*c.price )) as total
-                FROM reservation as r
-                NATURAL INNER JOIN car as c
-                INNER JOIN office as o ON o.office_id = c.office_id
+                from rental as r
+                NATURAL INNER JOIN vehicle as c
+                INNER join branch as o ON o.office_id = c.office_id
                 WHERE r.payment_date is not null
                 GROUP BY c.office_id 
                 ORDER BY total DESC 
@@ -817,7 +817,7 @@ app.post("/get-car-status-on-a-day", authorizeAdmin, (req, res) => {
   date += " 23:59:59";
   let query = `SELECT *
                 FROM car_status
-                NATURAL INNER JOIN car
+                NATURAL INNER JOIN vehicle
                 WHERE (plate_id,status_date) in (SELECT plate_id, MAX(status_date)
                                                 FROM car_status
                                                 where status_date <= ?
@@ -832,7 +832,7 @@ app.post("/get-car-status-by-plate-id", authorizeOffice, (req, res) => {
   let plate_id = req.body.plate_id;
   let query = `SELECT *
                 FROM car_status
-                NATURAL INNER JOIN car
+                NATURAL INNER JOIN vehicle
                 WHERE (plate_id,status_date) in (SELECT plate_id, MAX(status_date)
                                                 FROM car_status
                                                 where plate_id = ? and status_date <= current_timestamp()
@@ -854,15 +854,15 @@ app.post("/advanced-search", authorizeAdmin, (req, res) => {
   let customerEmail = req.body.email;
   let customerPhone = req.body.phone_no;
   let reservationDate = req.body.reservation_date;
-  //query reservation and join with customer and car to get the info
-  let query1 = `SELECT * FROM reservation as r
-                NATURAL LEFT JOIN car AS c
+  //query reservation and join with customer and vehicle to get the info
+  let query1 = `SELECT * from rental as r
+                NATURAL LEFT JOIN vehicle AS c
                 LEFT JOIN customer AS cu ON cu.ssn = r.ssn
                 `;
 
   let join = `UNION ALL\n`;
-  let query2 = `SELECT * FROM reservation as r
-                NATURAL RIGHT JOIN car As c
+  let query2 = `SELECT * from rental as r
+                NATURAL RIGHT JOIN vehicle As c
                 RIGHT JOIN customer AS cu ON cu.ssn = r.ssn
                 WHERE r.plate_id IS NULL`;
 
@@ -925,13 +925,13 @@ app.post("/show-avaialable-cars", authorizeCustomer, (req, res) => {
 
   let query = `SELECT *
                 FROM car_status
-                NATURAL INNER JOIN car as c
-                NATURAL INNER JOIN office as o
+                NATURAL INNER JOIN vehicle as c
+                NATURAL INNER join branch as o
                 NATURAL INNER JOIN car_photos
                 WHERE (plate_id,status_date) in (SELECT plate_id, MAX(status_date)
                                                 FROM car_status
                                                 where status_date <= ?
-                                                GROUP BY plate_id) AND c.plate_id NOT IN (SELECT plate_id FROM reservation WHERE (pickup_date <= ? AND return_date >= ?) or (pickup_date <= ? AND return_date >= ?) or (pickup_date >= ? AND return_date <= ?) or (pickup_date <= ? AND return_date >= ?))`;
+                                                GROUP BY plate_id) AND c.plate_id NOT IN (SELECT plate_id from rental WHERE (pickup_date <= ? AND return_date >= ?) or (pickup_date <= ? AND return_date >= ?) or (pickup_date >= ? AND return_date <= ?) or (pickup_date <= ? AND return_date >= ?))`;
   if (model != "Any") {
     conditions.push(`c.model = '${model}'`);
   }
@@ -976,7 +976,7 @@ app.post("/show-avaialable-cars", authorizeCustomer, (req, res) => {
 
 app.post("/pay-reservation", (req, res) => {
   let reservation_no = req.body.reservation_no;
-  let query = `UPDATE reservation SET payment_date = CURDATE() WHERE reservation_no = ?`;
+  let query = `UPDATE rental SET payment_date = CURDATE() WHERE reservation_no = ?`;
   db.query(query, [reservation_no], (err, result) => {
     if (err) return res.send({ message: err });
     res.send({ message: "success" });
