@@ -8,14 +8,14 @@ CREATE TABLE admin(
 );
 
 CREATE TABLE customer (
-    ssn CHAR(6),
+    license CHAR(6),
     fname VARCHAR(32) NOT NULL,
     lname VARCHAR(32) NOT NULL,
     email VARCHAR(64) UNIQUE NOT NULL,
     phone_no CHAR(11) UNIQUE NOT NULL,
     password VARCHAR(256) NOT NULL,
     wallet REAL DEFAULT 0,
-    CONSTRAINT customer_pk PRIMARY KEY (ssn)
+    CONSTRAINT customer_pk PRIMARY KEY (license)
 );
 
 CREATE TABLE credit_card(
@@ -27,10 +27,10 @@ CREATE TABLE credit_card(
 );
 
 CREATE TABLE customer_credit(
-    ssn CHAR(6),
+    license CHAR(6),
     card_no CHAR(16),
-    CONSTRAINT customer_credit_pk PRIMARY KEY (ssn, card_no),
-    CONSTRAINT customer_credit_customer_fk FOREIGN KEY (ssn) REFERENCES customer(ssn),
+    CONSTRAINT customer_credit_pk PRIMARY KEY (license, card_no),
+    CONSTRAINT customer_credit_customer_fk FOREIGN KEY (license) REFERENCES customer(license),
     CONSTRAINT customer_credit_card_fk FOREIGN KEY (card_no) REFERENCES credit_card(card_no) ON DELETE CASCADE
 );
 
@@ -60,14 +60,14 @@ CREATE TABLE vehicle(
 
 CREATE TABLE rental(
     reservation_no INT AUTO_INCREMENT,
-    ssn CHAR(6) NOT NULL,
+    license CHAR(6) NOT NULL,
     plate_id VARCHAR(8) NOT NULL,
     reserve_date DATE DEFAULT (CURRENT_DATE),
     pickup_date DATE NOT NULL,
     return_date DATE NOT NULL,
     payment_date DATE DEFAULT NULL,
     CONSTRAINT reservation_pk PRIMARY KEY (reservation_no),
-    CONSTRAINT reservation_customer_fk FOREIGN KEY (ssn) REFERENCES customer(ssn),
+    CONSTRAINT reservation_customer_fk FOREIGN KEY (license) REFERENCES customer(license),
     CONSTRAINT reservation_car_fk FOREIGN KEY (plate_id) REFERENCES car(plate_id) ON DELETE CASCADE
 );
 

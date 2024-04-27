@@ -55,14 +55,14 @@ INSERT INTO customer_credit(license, card_no) VALUES ('859282','8199147665644771
 
 
 -- Inserting into branch table
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Limozin Gold','limozin@gold.com','01532345678','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Cairo','1');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('El AML','aml@forreal.com','01123456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Alexandria','2');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Safe Ride Office','contact@saferide.com', '01158456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','3');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Lambo office','lambo@lambo.com','01512345698','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Cairo','4');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elnaggar office','naggar@gmail.com','01623411389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','5');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elzeny office','elzeny@gmail.com','01548456389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','6');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elasdka2 Limo','elasdka2@gmail.com','01227856389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','7');
-INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Uber office','uber@gmail.com','01273456341','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','8');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Limozin Gold','limozin@gold.com','01532345678','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Virginia','1');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('El AML','aml@forreal.com','01123456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','California','2');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Safe Ride Office','contact@saferide.com', '01158456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Florida','3');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Lambo office','lambo@lambo.com','01512345698','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','San Diego','4');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elnaggar office','naggar@gmail.com','01623411389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Texas','5');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elzeny office','elzeny@gmail.com','01548456389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Boston','6');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Elasdka2 Limo','elasdka2@gmail.com','01227856389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Washington','7');
+INSERT INTO branch (name, email, phone_no, password, country, city, building_no) VALUES('Uber office','uber@gmail.com','01273456341','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Redmond','8');
 
 
 

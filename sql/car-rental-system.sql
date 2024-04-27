@@ -72,7 +72,7 @@ CREATE TABLE `branch` (
 
 LOCK TABLES `branch` WRITE;
 /*!40000 ALTER TABLE `branch` DISABLE KEYS */;
-INSERT INTO `branch` VALUES (1,'Limozin Gold','limozin@gold.com','01532345678','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Cairo','1'),(2,'El AML','aml@forreal.com','01123456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Alexandria','2'),(3,'Safe Ride Office','contact@saferide.com','01158456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','3'),(4,'Lambo office','lambo@lambo.com','01512345698','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Cairo','4'),(5,'Elnaggar office','naggar@gmail.com','01623411389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','5'),(6,'Elzeny office','elzeny@gmail.com','01548456389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','6'),(7,'Elasdka2 Limo','elasdka2@gmail.com','01227856389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','7'),(8,'Uber office','uber@gmail.com','01273456341','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','Egypt','Giza','8');
+INSERT INTO `branch` VALUES (1,'Limozin Gold','limozin@gold.com','01532345678','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Virginia','1'),(2,'El AML','aml@forreal.com','01123456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','California','2'),(3,'Safe Ride Office','contact@saferide.com','01158456289','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Florida','3'),(4,'Lambo office','lambo@lambo.com','01512345698','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','San Diego','4'),(5,'Elnaggar office','naggar@gmail.com','01623411389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Texas','5'),(6,'Elzeny office','elzeny@gmail.com','01548456389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Boston','6'),(7,'Elasdka2 Limo','elasdka2@gmail.com','01227856389','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Washington','7'),(8,'Uber office','uber@gmail.com','01273456341','$2b$10$rVf5FqeP7PkC0Qj6No0sbONn7zQyZH0Z2l871rFA4IFPg9Iyo1EIq','USA','Redmond','8');
 /*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,14 +219,14 @@ DROP TABLE IF EXISTS `rental`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rental` (
-  `rental_id` int NOT NULL AUTO_INCREMENT,
+  `RESERVATION_NO` int NOT NULL AUTO_INCREMENT,
   `license` char(6) NOT NULL,
   `plate_id` varchar(8) NOT NULL,
   `reserve_date` date DEFAULT (curdate()),
   `pickup_date` date NOT NULL,
   `return_date` date NOT NULL,
   `payment_date` date DEFAULT NULL,
-  PRIMARY KEY (`rental_id`),
+  PRIMARY KEY (`RESERVATION_NO`),
   KEY `reservation_customer_fk` (`license`),
   KEY `reservation_car_fk` (`plate_id`),
   CONSTRAINT `reservation_car_fk` FOREIGN KEY (`plate_id`) REFERENCES `vehicle` (`plate_id`) ON DELETE CASCADE,
@@ -253,7 +253,7 @@ DROP TABLE IF EXISTS `review`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
   `REVIEW_ID` int NOT NULL AUTO_INCREMENT,
-  `RENTAL_ID` varchar(10) NOT NULL,
+  `RESERVATION_NO` varchar(10) NOT NULL,
   `RATING` int DEFAULT NULL,
   `COMMENT` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`REVIEW_ID`),
