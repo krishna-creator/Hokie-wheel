@@ -7,8 +7,7 @@
 }
 
 body {
-  color: #425F57;
-
+  color: #425f57;
 }
 
 p {
@@ -26,19 +25,19 @@ p {
 .sign :hover {
   text-decoration: none;
   color: white !important;
-  background-color: #D6E4E5;
+  background-color: #d6e4e5;
 }
 
 .sign :active {
   text-decoration: none;
   color: white !important;
-  background-color: #D6E4E5;
+  background-color: #d6e4e5;
 }
 
 body {
   color: white;
   font-weight: 300;
-  background-color: #EFF5F5;
+  background-color: #eff5f5;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -56,13 +55,11 @@ body {
   padding: 0 2rem;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
-  background-color: #D6E4E5;
+  background-color: #630031;
 }
 
 .slogan {
-
   font-size: 3rem;
-
 }
 
 .labelu {
@@ -114,7 +111,6 @@ body {
 .write {
   justify-content: center;
   padding: 3rem 18rem;
-
 }
 
 .submit-write {
@@ -124,7 +120,7 @@ body {
 }
 
 .page-title {
-  background-color: #D6E4E5;
+  background-color: #d6e4e5;
   text-align: center;
   margin-block-end: 0;
   padding-bottom: 1rem;
@@ -136,9 +132,7 @@ body {
 }
 
 .textarea-write {
-
   margin-bottom: 1rem;
-
 }
 
 /* new */
@@ -146,9 +140,12 @@ body {
   padding-top: 10rem;
 }
 
-.black {
+.hokie {
+  color: #fff;
+}
 
-  color: #425F57;
+.black {
+  color: #630031;
 }
 
 .global-div {
@@ -175,27 +172,22 @@ body {
 }
 
 .header-size {
-
   font-size: 2rem;
-
 }
 
 .redirect-list {
-  background-color: #EFF5F5;
-  background: #EFF5F5;
+  background-color: #eff5f5;
+  background: #eff5f5;
   border-left: none;
   border-right: none;
-
 }
 
 .justify-content-center {
-
   justify-content: center;
   text-align: center;
 }
 
 .date {
-
   padding: 2rem;
 }
 
@@ -212,7 +204,6 @@ body {
   padding: 10px;
   width: auto;
   margin: 2rem;
-
 }
 
 .note h1 {
@@ -232,12 +223,10 @@ body {
   white-space: pre-wrap;
   word-wrap: break-word;
   margin-bottom: 1rem;
-
 }
 
 .note button {
-
-  background: #2C3333;
+  background: #2c3333;
   position: relative;
   float: right;
   margin-right: 10px;
@@ -247,13 +236,12 @@ body {
   outline: none;
   text-decoration: none;
   margin-bottom: 1rem;
-
 }
 
 .tags {
   border-radius: 4px;
   box-shadow: 0 2px 5px #000;
-  background: #2C3333;
+  background: #2c3333;
   position: absolute;
   top: 0;
   right: 0;
@@ -265,14 +253,12 @@ body {
   text-decoration: none;
   margin-bottom: 1rem;
   cursor: alias;
-
 }
 
 .add-car {
   margin-left: 2rem;
   width: 80%;
 }
-
 
 .in {
   width: 100%;
@@ -289,7 +275,7 @@ body {
 }
 
 .card-container:hover .card {
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
   filter: grayscale(1);
 }
@@ -298,18 +284,18 @@ body {
   margin: 10px;
   width: calc(100% / 3 - 20px);
   float: left;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .05);
-  background: #FFF;
-  -webkit-transition: .3s all ease;
-  transition: .15s all ease;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  background: #fff;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.15s all ease;
 }
 
 .card-container .card:hover {
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .05);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
   transform: scale(1.025);
   opacity: 1;
   filter: grayscale(0);
-  transition: .35s all ease;
+  transition: 0.35s all ease;
 }
 
 .card-container .card_clicked {
@@ -317,15 +303,15 @@ body {
   width: calc(100% / 3 - 20px);
   float: left;
   /* box-shadow: 0 0 2px 2px rgba(0,0,0,.05); */
-  background: #FFF;
-  -webkit-transition: .3s all ease;
-  transition: .15s all ease;
+  background: #fff;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.15s all ease;
   box-shadow: 0 0 25px 25px rgba(250, 6, 6, 0.15);
   transform: scale(1.05);
   opacity: 1;
   filter: grayscale(0);
   /* padding-left: 50px; */
-  transition: .35s all ease;
+  transition: 0.35s all ease;
 }
 
 .card-container .card img {
@@ -349,31 +335,31 @@ body {
 }
 
 .card-container .card h3 {
-  font: 2.8rem/3.4rem 'Bree Serif', serif;
+  font: 2.8rem/3.4rem "Bree Serif", serif;
   padding: 0;
   margin: 0 0 10px;
-  letter-spacing: -.075rem
+  letter-spacing: -0.075rem;
 }
 
 .card-container .card_clicked h3 {
-  font: 2.8rem/3.4rem 'Bree Serif', serif;
+  font: 2.8rem/3.4rem "Bree Serif", serif;
   padding: 0;
   margin: 0 0 10px;
-  letter-spacing: -.075rem
+  letter-spacing: -0.075rem;
 }
 
 .card-container .card p {
   color: #888;
   padding: 0;
   margin: 0;
-  font: 400 1.6rem/2.2rem 'Open Sans script=all', sans-serif;
+  font: 400 1.6rem/2.2rem "Open Sans script=all", sans-serif;
 }
 
 .card-container .card_clicked p {
   color: #888;
   padding: 0;
   margin: 0;
-  font: 400 1.6rem/2.2rem 'Open Sans script=all', sans-serif;
+  font: 400 1.6rem/2.2rem "Open Sans script=all", sans-serif;
 }
 
 .width-40 {
@@ -404,14 +390,11 @@ body {
   font-size: 1.5rem;
 }
 
-.reserve-btn1
-{
+.reserve-btn1 {
   width: 20%;
 }
 
-
 /*  */
-.height
-{
+.height {
   max-height: 65rem;
 }

@@ -207,7 +207,7 @@ app.post("/signup", (req, res) => {
   let password = req.body.password;
   let fName = req.body.fName;
   let lName = req.body.lName;
-  let ssn = req.body.ssn;
+  let license = req.body.license;
   let creditCardNo = req.body.credit_card_no;
   let holdreName = req.body.holder_name;
   let expDate = req.body.credit_card_expiry_date;
@@ -228,8 +228,8 @@ app.post("/signup", (req, res) => {
   bcrypt.hash(password, saltRound, function (err, hash) {
     //store the info inside the database
     db.query(
-      "INSERT INTO customer (email, password, fname, lname, ssn, phone_no) VALUES (?,?,?,?,?,?)",
-      [email, hash, fName, lName, ssn, phone],
+      "INSERT INTO customer (email, password, fname, lname, license, phone_no) VALUES (?,?,?,?,?,?)",
+      [email, hash, fName, lName, license, phone],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -237,8 +237,8 @@ app.post("/signup", (req, res) => {
         }
 
         db.query(
-          "INSERT INTO customer_credit (ssn, card_no) VALUES (?,?)",
-          [ssn, creditCardNo],
+          "INSERT INTO customer_credit (license, card_no) VALUES (?,?)",
+          [license, creditCardNo],
           (err, result) => {
             if (err) {
               console.log(err);
@@ -392,7 +392,7 @@ app.post("/add-car", authorizeOffice, (req, res) => {
 //post request to add a reservation
 app.post("/add-reservation", authorizeCustomer, (req, res) => {
   let decodedToken = decodeToken(req.cookies.token);
-  let ssn = decodedToken.user.ssn;
+  let license = decodedToken.user.license;
   let plateId = req.body.plateId;
   let pickupDate = req.body.pickupDate;
   let returnDate = req.body.returnDate;
@@ -404,11 +404,11 @@ app.post("/add-reservation", authorizeCustomer, (req, res) => {
   var query = "";
   if (payNow === "true")
     query =
-      "INSERT INTO reservation (ssn, plate_id, pickup_date, return_date, payment_date) VALUES (?,?,?,?, CURDATE())";
+      "INSERT INTO reservation (license, plate_id, pickup_date, return_date, payment_date) VALUES (?,?,?,?, CURDATE())";
   else
     query =
-      "INSERT INTO reservation (ssn, plate_id, pickup_date, return_date) VALUES (?,?,?,?)";
-  db.query(query, [ssn, plateId, pickupDate, returnDate], (err, result) => {
+      "INSERT INTO reservation (license, plate_id, pickup_date, return_date) VALUES (?,?,?,?)";
+  db.query(query, [license, plateId, pickupDate, returnDate], (err, result) => {
     if (err) return res.send({ message: err });
 
     db.query(
@@ -429,13 +429,17 @@ app.post("/add-reservation", authorizeCustomer, (req, res) => {
   });
 });
 
-//check if ssn is already taken in customer
-app.post("/check-ssn-customer", (req, res) => {
-  let ssn = req.body.ssn;
-  db.query("SELECT * FROM customer WHERE ssn = ?", [ssn], (err, result) => {
-    if (err) return res.send({ message: err });
-    res.send({ taken: result.length > 0 });
-  });
+//check if licence is already taken in customer
+app.post("/check-licence-customer", (req, res) => {
+  let licence = req.body.licence;
+  db.query(
+    "SELECT * FROM customer WHERE licence = ?",
+    [licence],
+    (err, result) => {
+      if (err) return res.send({ message: err });
+      res.send({ taken: result.length > 0 });
+    }
+  );
 });
 
 app.post("/delete-car", authorizeOffice, (req, res) => {
@@ -562,14 +566,14 @@ app.post("/get-car-reservation", authorizeAdmin, (req, res) => {
   );
 });
 
-//get customer name from ssn
+//get customer name from license
 app.post("/get-customer-name", authroizeAdminOrCustomer, (req, res) => {
   let token = decodeToken(req.cookies.token);
-  var ssn = token.user.ssn;
+  var license = token.user.license;
   ///get the reservation info from the database
   db.query(
-    "SELECT fname,lname FROM customer WHERE ssn = ?",
-    [ssn],
+    "SELECT fname,lname FROM customer WHERE license = ?",
+    [license],
     (err, result) => {
       if (err) return res.send({ message: err });
       res.send({ customer: result, message: "success" });
@@ -598,7 +602,7 @@ app.post("/get-office-reservation", authorizeOffice, (req, res) => {
   var id = token.user.office_id;
   ///get the reservation info from the database
   db.query(
-    "SELECT * , ((DATEDIFF(return_date,pickup_date)+1)*price ) as revenue FROM reservation JOIN car ON reservation.plate_id = car.plate_id JOIN office on car.office_id = office.office_id JOIN customer ON reservation.ssn = customer.ssn where office.office_id = ?",
+    "SELECT * , ((DATEDIFF(return_date,pickup_date)+1)*price ) as revenue FROM reservation JOIN car ON reservation.plate_id = car.plate_id JOIN office on car.office_id = office.office_id JOIN customer ON reservation.license = customer.license where office.office_id = ?",
     [id],
     (err, result) => {
       if (err) return res.send({ message: err });
