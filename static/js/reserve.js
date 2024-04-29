@@ -206,7 +206,7 @@ $(document).ready(function () {
     });
     $(".logout-button").click(function () {
         $.ajax({
-            url: "/logout",
+            url: "/logout",  
             type: "POST",
             success: function (response) {
                 window.location.href = "/";
