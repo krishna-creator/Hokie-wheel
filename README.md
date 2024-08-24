@@ -3,6 +3,15 @@
 
 Brief description of your Node.js project.
 
+## ER Diagram
+
+![ER Diagram](/ER%20Diagram.png)
+
+## Authentication and Authorization
+
+- The system uses [JSON Web Tokens](https://jwt.io/) for authentication and authorization.
+- The system uses [cookie-parser](https://www.npmjs.com/package/cookie-parser) to store the access token in the cookies.
+
 ## Installation
 
 Follow these steps to set up and run the project on your local machine.
@@ -42,8 +51,6 @@ This command installs all the required dependencies listed in the `package.json`
   ```
   yarn start
   ```
-
-Adjust the commands based on your project setup.
 
 ## Usage
 
