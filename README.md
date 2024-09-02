@@ -1,7 +1,6 @@
-
 # Project Title
 
-Brief description of your Node.js project.
+A Car Rental Website designed with nodeJS project
 
 ## ER Diagram
 
